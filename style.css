@@ -18,3 +18,12 @@
     stroke: steelblue;
     stroke-width: 1.5px;
 }
+
+.bar rect {
+    fill: steelBlue;
+}
+
+.bar text {
+    fill: #fff;
+    font: 10px sans-serif;
+}

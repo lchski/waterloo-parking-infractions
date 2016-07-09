@@ -21,13 +21,16 @@ module.exports = (state, prev, send) => {
             width = 960 - margin.left - margin.right,
             height = 500 - margin.top - margin.bottom;
 
+        var parseDate = d3.timeParse("%Y");
+
         var x = d3.scaleTime()
-            .range([0, width]);
+            .domain([new Date(2005, 0, 1), new Date(2016, 8, 1)])
+            .rangeRound([0, width]);
 
         var y = d3.scaleLinear()
             .range([height, 0]);
 
-        var line = d3.line()
+        var bar = d3.line()
             .x(function(d) { return x(d3.isoParse(d.ISSUEDATE)); })
             .y(function(d) { return y(d.VIOFINE); });
 
@@ -41,6 +44,13 @@ module.exports = (state, prev, send) => {
 
         d3.json("./acadia_crt.json", function(error, data) {
             if (error) throw error;
+
+            let coercedData = d3.nest()
+                .key((d) => { return d.ISSUEDATE.substring(0, 4) })
+                .rollup((d) => { return d.length })
+                .entries(data);
+
+            console.log(coercedData);
 
             x.domain(d3.extent(data, function(d) { return d3.isoParse(d.ISSUEDATE); }));
             y.domain(d3.extent(data, function(d) { return d.VIOFINE; }));
