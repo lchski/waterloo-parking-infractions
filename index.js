@@ -23,7 +23,11 @@ app.model({
             return { streets: data, filteredStreets: data.sort() }
         },
         filterStreets: (data, state) => {
-            return { filteredStreets: [data.query]}
+            let filteredStreets = state.streets.filter((element, index, array) => {
+                return element.toLowerCase().indexOf(data.query.toLowerCase()) >= 0;
+            })
+
+            return { filteredStreets: filteredStreets }
         },
         resetStreets: (data, state) => {
             return { filteredStreets: state.streets }
