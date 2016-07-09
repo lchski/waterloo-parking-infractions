@@ -3,9 +3,8 @@
   "version": "0.0.1",
   "main": "index.js",
   "scripts": {
-    "start": "npm run copy && budo index.js --serve=dist/index.js --open -- -t babelify",
-    "copy": "mkdir -p dist && cp node_modules/todomvc-{common/base,app-css/index}.css dist/",
-    "compile": "npm run copy && browserify index.js -o dist/index.js -t babelify"
+    "start": "budo index.js --serve=dist/index.js --open -- -t babelify",
+    "compile": "browserify index.js -o dist/index.js -t babelify"
   },
   "license": "MIT",
   "devDependencies": {
