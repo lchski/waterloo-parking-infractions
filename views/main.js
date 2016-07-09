@@ -6,7 +6,7 @@ module.exports = (state, prev, send) => {
         <h1>Streets</h1>
         <input type="text" placeholder="Search" oninput=${(e) => {
             send('filterStreets', {query: e.target.value})
-        }}>
+        }} id="searchQuery" />
         <form onsubmit=${onClear}>
             <input type="submit" value="Clear">
         </form>
@@ -17,6 +17,8 @@ module.exports = (state, prev, send) => {
 
     function onClear(e) {
         send('resetStreets')
+
+        document.getElementById('searchQuery').value = ''
 
         e.preventDefault();
     }
