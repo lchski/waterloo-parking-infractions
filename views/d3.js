@@ -21,8 +21,6 @@ module.exports = (state, prev, send) => {
             width = 960 - margin.left - margin.right,
             height = 500 - margin.top - margin.bottom;
 
-        var parseTime = d3.timeParse("%d-%b-%y");
-
         var x = d3.scaleTime()
             .range([0, width]);
 
@@ -30,8 +28,8 @@ module.exports = (state, prev, send) => {
             .range([height, 0]);
 
         var line = d3.line()
-            .x(function(d) { return x(d.date); })
-            .y(function(d) { return y(d.close); });
+            .x(function(d) { return x(d3.isoParse(d.ISSUEDATE)); })
+            .y(function(d) { return y(d.VIOFINE); });
 
         var svg = d3.select("#d3Container").append("svg")
             .attr("width", width + margin.left + margin.right)
@@ -39,11 +37,13 @@ module.exports = (state, prev, send) => {
             .append("g")
             .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-        d3.tsv("https://gist.githubusercontent.com/mbostock/02d893e3486c70c4475f/raw/26cf20290389430baed71bf36be44faf7dda6d8d/data.tsv", type, function(error, data) {
+        console.log('heyy');
+
+        d3.json("./acadia_crt.json", function(error, data) {
             if (error) throw error;
 
-            x.domain(d3.extent(data, function(d) { return d.date; }));
-            y.domain(d3.extent(data, function(d) { return d.close; }));
+            x.domain(d3.extent(data, function(d) { return d3.isoParse(d.ISSUEDATE); }));
+            y.domain(d3.extent(data, function(d) { return d.VIOFINE; }));
 
             svg.append("g")
                 .attr("class", "axis axis--x")
@@ -66,11 +66,5 @@ module.exports = (state, prev, send) => {
                 .attr("class", "line")
                 .attr("d", line);
         });
-
-        function type(d) {
-            d.date = parseTime(d.date);
-            d.close = +d.close;
-            return d;
-        }
     }
 }
