@@ -1,7 +1,7 @@
 module.exports = {
     state: {
         todos: [
-            { title: 'Buy milks' },
+            { title: 'Buy milk' },
             { title: 'Call mum' }
         ]
     }

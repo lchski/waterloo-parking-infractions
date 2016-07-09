@@ -3,7 +3,7 @@ const choo = require('choo')
 const mainView = require('./views/main')
 
 const app = choo()
-app.model(require('./model'))
+app.model(require('./models/model'))
 
 app.router((route) => [
     route('/', mainView)
