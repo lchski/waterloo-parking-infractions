@@ -5,7 +5,7 @@ module.exports = (state, prev, send) => {
     <div onload=${() => send('getStreets')}>
       <h1>Streets</h1>
       <ul>
-        ${state.streets.map((street) => html`<li>${street}</li>`)}
+        ${state.streets.sort().map((street) => html`<li>${street}</li>`)}
       </ul>
     </div>`
 }
