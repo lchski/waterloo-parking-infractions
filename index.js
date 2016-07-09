@@ -15,11 +15,18 @@ const app = choo()
 
 app.model({
     state: {
-        streets: []
+        streets: [],
+        filteredStreets: []
     },
     reducers: {
         receiveStreets: (data, state) => {
-            return { streets: data }
+            return { streets: data, filteredStreets: data.sort() }
+        },
+        filterStreets: (data, state) => {
+            return { filteredStreets: [data.query]}
+        },
+        resetStreets: (data, state) => {
+            return { filteredStreets: state.streets }
         }
     },
     effects: {
