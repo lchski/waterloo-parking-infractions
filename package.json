@@ -12,5 +12,8 @@
     "babelify": "^7.3.0",
     "browserify": "^13.0.1",
     "budo": "^8.2.2"
+  },
+  "dependencies": {
+    "choo": "latest"
   }
 }
