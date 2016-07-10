@@ -45,51 +45,47 @@ module.exports = (state, prev, send) => {
         d3.json("./aggregate_infraction_time.json", function(error, data) {
             if (error) throw error;
 
-            let parsedData = data.forEach((e) => {
-                let d = {};
+            // let parsedData = d3.map(data, (d) => {
+            //     d.rate = +d.value / 365 * 60;
+            //     d.time = parseTime(d.key);
+            //     d.time.setUTCHours((d.time.getUTCHours() + 24 - 7) % 24);
+            //
+            //     return d;
+            // });
 
-                d.rate = +e.value / 365 * 60;
-                d.time = parseTime(e.key);
-                d.time.setUTCHours((d.time.getUTCHours() + 24 - 7) % 24);
+            y.domain([0, d3.max(data, function(d) { return d.key; })]);
 
-                return d;
-            });
+            // svg.append("g")
+            //     .attr("class", "axis axis--x")
+            //     .attr("transform", "translate(0," + height + ")")
+            //     .call(d3.svg.axis()
+            //         .scale(x)
+            //         .orient("bottom")
+            //         .tickFormat(d3.utcFormat("%I %p")));
 
-            console.log(parsedData);
+            // svg.append("g")
+            //     .attr("class", "dots")
+            //     .selectAll("path")
+            //     .data(parsedData)
+            //     .enter().append("path")
+            //     .attr("transform", function(d) { return "translate(" + x(d.time) + "," + y(d.rate) + ")"; })
+            //     .attr("d", d3.svg.symbol()
+            //         .size(40));
 
-            y.domain([0, d3.max(parsedData, function(d) { return d.rate; })]);
+            // var tick = svg.append("g")
+            //     .attr("class", "axis axis--y")
+            //     .call(d3.svg.axis()
+            //         .scale(y)
+            //         .tickSize(-width)
+            //         .orient("left"))
+            //     .select(".tick:last-of-type");
 
-            svg.append("g")
-                .attr("class", "axis axis--x")
-                .attr("transform", "translate(0," + height + ")")
-                .call(d3.svg.axis()
-                    .scale(x)
-                    .orient("bottom")
-                    .tickFormat(d3.utcFormat("%I %p")));
+            // var title = tick.append("text")
+            //     .attr("dy", ".32em")
+            //     .text("tweets per hour");
 
-            svg.append("g")
-                .attr("class", "dots")
-                .selectAll("path")
-                .data(parsedData)
-                .enter().append("path")
-                .attr("transform", function(d) { return "translate(" + x(d.time) + "," + y(d.rate) + ")"; })
-                .attr("d", d3.svg.symbol()
-                    .size(40));
-
-            var tick = svg.append("g")
-                .attr("class", "axis axis--y")
-                .call(d3.svg.axis()
-                    .scale(y)
-                    .tickSize(-width)
-                    .orient("left"))
-                .select(".tick:last-of-type");
-
-            var title = tick.append("text")
-                .attr("dy", ".32em")
-                .text("tweets per hour");
-
-            tick.select("line")
-                .attr("x1", title.node().getBBox().width + 6);
+            // tick.select("line")
+            //     .attr("x1", title.node().getBBox().width + 6);
         });
     }
 }
