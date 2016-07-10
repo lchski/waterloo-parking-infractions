@@ -65,6 +65,8 @@ module.exports = (state, prev, send) => {
 
             var title = tick.append("text")
                 .attr("dy", ".32em")
+                .attr("fill", "#000")
+                .attr("transform", "translate(68, 0.45)")
                 .text("tickets per hour");
 
             tick.select("line")
