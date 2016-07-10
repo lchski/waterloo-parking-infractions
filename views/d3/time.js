@@ -37,11 +37,6 @@ module.exports = (state, prev, send) => {
             .append("g")
             .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-        svg.append("g")
-            .attr("class", "axis axis--x")
-            .attr("transform", "translate(0," + height + ")")
-            .call(d3.axisBottom(x));
-
         d3.csv("./aggregate_infraction_time.csv", type, function(error, data) {
             if (error) throw error;
 
@@ -70,7 +65,7 @@ module.exports = (state, prev, send) => {
 
             var title = tick.append("text")
                 .attr("dy", ".32em")
-                .text("tweets per hour");
+                .text("tickets per hour");
 
             tick.select("line")
                 .attr("x1", title.node().getBBox().width + 6);
@@ -79,7 +74,7 @@ module.exports = (state, prev, send) => {
         function type(d) {
             d.rate = +d.count;
             d.time = parseTime(d.time);
-            d.time.setUTCHours((d.time.getUTCHours() + 24 - 7) % 24);
+            d.time.setUTCHours((d.time.getUTCHours() + 24 - 5) % 24);
             return d;
         }
     }
