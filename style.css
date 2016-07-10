@@ -1,5 +1,7 @@
-.axis {
-    font: 10px sans-serif;
+.dots path {
+    fill: none;
+    stroke: steelblue;
+    stroke-width: 1.5px;
 }
 
 .axis path,
@@ -9,14 +11,16 @@
     shape-rendering: crispEdges;
 }
 
-.axis--x path {
-    display: none;
+.axis--y line {
+    stroke-opacity: 0.2;
 }
 
-.line {
-    fill: none;
-    stroke: steelblue;
-    stroke-width: 1.5px;
+.axis--y path {
+    stroke: none;
+}
+
+.axis text {
+    font: 10px sans-serif;
 }
 
 .bar rect {
@@ -27,3 +31,4 @@
     fill: #fff;
     font: 10px sans-serif;
 }
+

@@ -2,7 +2,7 @@ const choo = require('choo')
 const http = require('choo/http')
 
 const mainView = require('./views/main')
-const d3View = require('./views/d3')
+const d3View = require('./views/d3/histogram')
 
 const streetApi = {
     getAll: (cb) => {
@@ -43,9 +43,10 @@ app.model({
     }
 })
 
-app.router('/d3', (route) => [
+app.router((route) => [
     route('/', mainView),
-    route('/d3', d3View)
+    route('/d3hist', require('./views/d3/histogram')),
+    route('/d3time', require('./views/d3/time'))
 ])
 
 const tree = app.start({
