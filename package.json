@@ -3,18 +3,22 @@
   "version": "0.0.1",
   "main": "index.js",
   "scripts": {
-    "start": "budo index.js --serve=dist/index.js --open -- -t babelify",
-    "compile": "browserify index.js -o dist/index.js -t babelify"
+    "dev": "budo index.js --serve=dist/index.js -- -t babelify",
+    "compile": "NODE_ENV=production browserify -t envify -g yo-yoify -g unassertify -g es2020 -g uglifyify index.js | uglifyjs -c -o dist/bundle.js",
+    "prod-testing-server": "npm run compile && http-server dist/ -p 8081"
   },
   "license": "MIT",
-  "devDependencies": {
-    "babel-preset-es2015": "^6.9.0",
-    "babelify": "^7.3.0",
-    "browserify": "^13.0.1",
-    "budo": "^8.2.2"
-  },
   "dependencies": {
     "choo": "latest",
     "d3": "^4.1.0"
+  },
+  "devDependencies": {
+    "babel-preset-es2015": "^6.9.0",
+    "budo": "^8.3.0",
+    "envify": "^3.4.1",
+    "es2020": "^1.1.7",
+    "uglifyify": "^3.0.2",
+    "unassertify": "^2.0.3",
+    "yo-yoify": "^3.3.0"
   }
 }
